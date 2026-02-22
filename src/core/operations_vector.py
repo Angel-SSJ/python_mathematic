@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 
+
 class OperationsVector(ABC):
     """
     Interface defining vector operations using NumPy arrays.
