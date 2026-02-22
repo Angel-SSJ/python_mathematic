@@ -10,16 +10,21 @@ python_mathematic/
 └── src/
     ├── core/              # NÚCLEO
     │   ├── __init__.py
-    │   ├── mathematical_object.py  # Clase Base Abstracta (ABC) para objetos matemáticos
-    │   ├── operations_vector.py    # Interfaz de operaciones vectoriales
-    │   └── vector.py      # Clase Vector con NumPy
+    │   ├── mathematical_object.py   # Clase Base Abstracta (ABC) para objetos matemáticos
+    │   ├── operations_vector.py     # Interfaz de operaciones vectoriales
+    │   ├── operations_trajectory.py   # Interfaz de operaciones de trayectorias
+    │   ├── vector.py                # Clase Vector con NumPy
+    │   └── trajectory.py            # Clase Trajectory con NumPy y Matplotlib
     ├── utils/             # UTILIDADES
     │   ├── __init__.py
     │   ├── input_handler.py # Validaciones de entrada (español)
-    │   └── menu.py        # Sistema de menú CLI interactivo (español)
+    │   └── menu.py          # Sistema de menú CLI interactivo (español)
     └── tasks/             # TAREAS
         ├── __init__.py
-        └── task_01_vectors/
+        ├── task_01_vectors/
+        │   ├── __init__.py
+        │   └── main.py      # Ejecutable de operaciones vectoriales
+        └── 02_trajectories/
             ├── __init__.py
-            └── main.py    # Ejecutable de operaciones vectoriales (español)
+            └── main.py      # Ejecutable de trayectorias helicoidales
 ```
