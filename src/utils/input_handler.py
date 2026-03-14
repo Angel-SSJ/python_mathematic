@@ -108,3 +108,19 @@ class InputHandler:
             except KeyboardInterrupt:
                 print("\nOperación cancelada.")
                 raise
+
+
+    @staticmethod
+    def get_list_of_strings(prompt: str, setup_delimiter: str = ",") -> List[str]:
+        """Obtiene una lista de strings, soportando constantes."""
+        while True:
+            try:
+                raw = input(f"{prompt} (separado por '{setup_delimiter}'): ")
+                if not raw.strip():
+                     print("Error: El valor no puede estar vacío.")
+                     continue
+
+                return [x.strip() for x in raw.split(setup_delimiter)]
+            except KeyboardInterrupt:
+                print("\nOperación cancelada.")
+                raise
