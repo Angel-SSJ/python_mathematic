@@ -24,7 +24,7 @@ class Derivative(Iderivative):
 
     @override
     def get_expression(self):
-        return print(f'Expression: {self.expression}')
+        return print(f'Expresión: {self.expression}')
 
     @override
     def get_variables(self):
@@ -32,11 +32,11 @@ class Derivative(Iderivative):
 
     @override
     def get_partial_derivatives(self):
-        return print(f'Partial Derivatives: \n {self.partial_derivatives}')
+        return print(f'Derivadas parciales: \n {self.partial_derivatives}')
 
     @override
     def get_evaluated_point(self):
-        return print(f'Evaluated Point: {self.evaluated_point}')
+        return print(f'Punto de evaluación: {self.evaluated_point}')
 
     @override
     def get_derivative(self):
@@ -76,7 +76,7 @@ class Derivative(Iderivative):
         idx = 0
 
         while idx < len(variables):
-            # Se validasi las variables insertadas son alfabeticas
+            # Se validar si las variables insertadas son alfabeticas
             if not re.match(pattern,variables[idx]):
                 raise ValueError(f"Variable inválida: {variables[idx]}")
             self.variables.append(variables[idx])

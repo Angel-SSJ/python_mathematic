@@ -10,16 +10,11 @@ class Operations:
     def __init__(self):
         self.operations = OperationsDerivatives()
 
-    #def define_children_derivatives(self):
-    #def define_parent_derivatives(self):
-    #def calculate_chain_rule(self):
-    #def evaluate_chain_rule(self):
-
     def define_children_derivatives(self):
         names = InputHandler.get_list_of_strings("Introduce los nombres de las variables intermedias (ej: x,y)")
-        expressions = InputHandler.get_list_of_strings("Introduce las expresiones hijas")
         independent_variables = InputHandler.get_list_of_strings("Introduce las variables independientes (ej: v,u)")
-        evaluated_point = InputHandler.get_list_of_floats("Introduce los valores de coordenas del punto de evaluacion")
+        expressions = InputHandler.get_list_of_strings("Introduce las expresiones hijas (ej: 2*v-u)")
+        evaluated_point = InputHandler.get_list_of_floats("Introduce los valores de coordenas del punto de evaluacion (ej: 1,1)")
 
         for name, expression in zip(names, expressions):
             child_derivative = Derivative()
@@ -32,9 +27,9 @@ class Operations:
 
     def define_parent_derivatives(self):
         name = InputHandler.get_string("Introduce el nombre de la variable (ej: w)")
-        expressions = InputHandler.get_list_of_strings("Introduce las expresiones padres")
-        variables = InputHandler.get_list_of_strings("Introduce las variables de las expresiones padres")
-        evaluated_point = InputHandler.get_list_of_floats("Introduce los valores de coordenas del punto de evaluacion")
+        variables = InputHandler.get_list_of_strings("Introduce las variables de las expresiones padres (ej: x,y)")
+        expressions = InputHandler.get_list_of_strings("Introduce las expresiones padres (ej: E**(x*y))")
+        evaluated_point = InputHandler.get_list_of_floats("Introduce los valores de coordenas del punto de evaluacion (ej: 1,1)")
         for expression in expressions:
             parent_derivative = Derivative()
             parent_derivative.set_expression(expression)
