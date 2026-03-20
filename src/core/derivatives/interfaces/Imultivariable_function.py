@@ -1,15 +1,15 @@
 
 from abc import ABC,abstractmethod
-from ..types import Variables,Expression
+from ..types import Expression
 from typing import List
 
 
-class Iderivative(ABC):
+class IMultivariableFunction(ABC):
 
 
     @abstractmethod
-    def get_expression(self):
-        """Obtiene la expresión de la derivada"""
+    def get_expressions(self):
+        """Obtiene las expresiones de la función"""
         pass
 
     @abstractmethod
@@ -30,6 +30,11 @@ class Iderivative(ABC):
     @abstractmethod
     def get_evaluated_point(self):
         """Obtiene el punto de evaluación de la derivada"""
+        pass
+
+    @abstractmethod
+    def get_second_partial_derivatives(self):
+        """Obtiene las derivadas parciales de segundo orden de la expresión"""
         pass
 
     @abstractmethod
@@ -58,6 +63,11 @@ class Iderivative(ABC):
         pass
 
     @abstractmethod
+    def clear_second_partial_derivatives(self):
+        """Limpia las derivadas parciales de segundo orden de la expresión"""
+        pass
+
+    @abstractmethod
     def clear_all(self):
         """Limpia todas las variables de la expresión"""
         pass
@@ -82,6 +92,16 @@ class Iderivative(ABC):
         pass
 
     @abstractmethod
-    def set_partial_derivatives(self):
-        """Establece las derivadas parciales de la expresión"""
+    def set_first_partial_derivatives(self):
+        """Establece las derivadas parciales de primer orden"""
+        pass
+
+    @abstractmethod
+    def set_second_partial_derivatives(self):
+        """Establece las derivadas parciales de segundo orden de la expresón"""
+        pass
+
+    @abstractmethod
+    def evaluate_expression(self):
+        """Evaluar la expresion"""
         pass

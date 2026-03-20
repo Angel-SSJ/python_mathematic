@@ -1,7 +1,7 @@
 from abc import ABC,abstractmethod
-from ..types import Variables,Expression
+from ..types import Expression
 
-class IOperationsDerivatives(ABC):
+class IMultivariableAnalysis(ABC):
 
     @abstractmethod
     def get_parent_derivatives(self):
@@ -54,40 +54,40 @@ class IOperationsDerivatives(ABC):
         pass
 
     @abstractmethod
-    def set_parent_derivatives(self,derivative:Derivative):
+    def set_parent_derivatives(self,derivative:IFunction):
         """Establece las derivadas padres"""
         pass
     @abstractmethod
-    def add_parent_derivative(self,derivative:Derivative):
-        """Agrega una derivada padre"""
+    def add_parent_function(self,derivative:IFunction):
+        """Agrega una funcion padre"""
         pass
 
 
     @abstractmethod
-    def set_child_derivatives(self,derivative:Derivative):
+    def set_child_derivatives(self,derivative:IFunction):
         """Establece las derivadas hijas"""
         pass
     @abstractmethod
-    def add_child_derivative(self,derivative:Derivative):
+    def add_child_function(self,derivative:IFunction):
         """Agrega una derivada hija"""
         pass
 
     @abstractmethod
-    def set_parent_partial_derivarive(self):
+    def set_parent_first_partial_derivarive(self):
         """Establece las derivadas parciales de las derivadas padres"""
         pass
 
     @abstractmethod
-    def set_child_partial_derivarive(self):
+    def set_parent_second_partial_derivarive(self):
+        """Establece las derivadas parciales de las derivadas padres"""
+        pass
+
+    @abstractmethod
+    def set_child_first_partial_derivarive(self):
         """Establece las derivadas parciales de las derivadas hijas"""
         pass
 
     @abstractmethod
-    def get_chain_rule(self):
-        """Obtiene la regla de la cadena"""
-        pass
-
-    @abstractmethod
-    def evaluate_chain_rule(self):
-        """Evalua la regla de la cadena"""
+    def set_child_second_partial_derivarive(self):
+        """Establece las derivadas parciales de las derivadas hijas"""
         pass
