@@ -150,15 +150,6 @@ class MultivariableFunction(IMultivariableFunction,IHessianMatrix,IGradient,ITay
                     # Se agrega la derivada parcial al listado
                     self.derivatives.first_partials.values.append(IPartialDerivative(variable=variable,expression=current_partial_derivative))
 
-
-    @override
-    def set_gradient(self):
-        self.clear_gradient()
-        subs_dict = {sp.Symbol(v):val for v,val in zip(self.variables,self.evaluated_point)}
-        for partial_derivative in self.derivatives.first_partials.values:
-            evaluated = partial_derivative.expression.subs(subs_dict)
-            self.vector_gradient.values.append(evaluated)
-
     @override
     def set_second_partial_derivatives(self):
         self.clear_second_partial_derivatives()
@@ -175,6 +166,13 @@ class MultivariableFunction(IMultivariableFunction,IHessianMatrix,IGradient,ITay
                     )
                 )
 
+    @override
+    def set_gradient(self):
+        self.clear_gradient()
+        subs = {sp.Symbol(v):val for v,val in zip(self.variables,self.evaluated_point)}
+        for partial_derivative in self.derivatives.first_partials.values:
+            evaluated = partial_derivative.expression.subs(subs)
+            self.vector_gradient.values.append(evaluated)
 
     @override
     def set_hessian_matrix(self):
@@ -227,7 +225,6 @@ class MultivariableFunction(IMultivariableFunction,IHessianMatrix,IGradient,ITay
 
     @override
     def evaluate_expression(self):
-
         for expression in self.expressions.values:
             if (expression.type == 'default'):
                 syms = [sp.Symbol(v) for v in self.variables]

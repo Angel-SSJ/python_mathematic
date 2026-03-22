@@ -21,7 +21,6 @@ class Operations:
             parent_function.set_variables(variables)
             parent_function.set_name(name)
             parent_function.set_evaluated_point(evaluated_point)
-
             parent_function.set_first_partial_derivatives()
             parent_function.set_gradient()
             parent_function.set_second_partial_derivatives()
@@ -39,7 +38,6 @@ class Operations:
             child_function.set_expression(expression)
             child_function.set_variables(independent_variables)
             child_function.set_evaluated_point(evaluated_point)
-
             child_function.set_first_partial_derivatives()
             child_function.set_second_partial_derivatives()
             self.operations.add_child_function(child_function)
@@ -81,8 +79,8 @@ class Operations:
         menu.add_option("Calcular regla de la cadena", self.calculate_chain_rule)
         menu.add_option("Calcular vector gradiente", self.calculate_gradient)
         menu.add_option("Calcular matriz Hessiana", self.calculate_hessian_matrix)
-        menu.add_option("Definir polinomio de Taylor 2° orden", self.define_taylor_function)
-        menu.add_option("Evaluar polinomio de Taylor 2° orden", self.calculate_taylor_polynomial)
+        menu.add_option("Definir polinomio de 2° orden de Taylor", self.define_taylor_function)
+        menu.add_option("Evaluar polinomio de 2° orden de Taylor", self.calculate_taylor_polynomial)
         menu.run()
 
 
