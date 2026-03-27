@@ -16,3 +16,8 @@ class IHessianMatrix(ABC):
     def clear_hessian_matrix(self):
         """Limpiar la matriz hessiana"""
         pass
+
+    @abstractmethod
+    def get_symbolic_hessian_matrix(self):
+        """Retorna la matriz hessiana simbolica (sin evaluar en el punto) para adaptarse a problemas similares a lambda"""
+        pass

@@ -16,3 +16,8 @@ class IGradient(ABC):
     def clear_gradient(self):
         """Limpia el vector gradiente"""
         pass
+
+    @abstractmethod
+    def get_symbolic_gradient(self):
+        """Retorna el gradiente simbolico (sin evaluar en el punto) para adaptarse a problemas similares a lambda"""
+        pass

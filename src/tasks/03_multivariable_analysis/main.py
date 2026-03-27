@@ -14,10 +14,11 @@ class Operations:
         name = InputHandler.get_string("Introduce el nombre de la variable (ej: w)")
         variables = InputHandler.get_list_of_strings("Introduce las variables de las expresiones padres (ej: x,y)")
         expressions = InputHandler.get_list_of_strings("Introduce las expresiones padres (ej: E**(x*y))")
+        types = InputHandler.get_list_of_strings("Introduce el tipo de expresion segun el orden de insercion (ej: defecto,delimitadora)")
         evaluated_point = InputHandler.get_list_of_floats("Introduce los valores de coordenas del punto de evaluacion (ej: 1,1)")
-        for expression in expressions:
+        for expression,t in zip(expressions,types):
             parent_function = MultivariableFunction()
-            parent_function.set_expression(expression)
+            parent_function.set_expression(expression,t)
             parent_function.set_variables(variables)
             parent_function.set_name(name)
             parent_function.set_evaluated_point(evaluated_point)
@@ -72,6 +73,22 @@ class Operations:
 
         self.operations.evaluate_taylor_second_order_polynomial(idx)
 
+
+    def define_system_of_lagrangian_equations(self):
+        self.operations.set_system_of_lagrangian_equations()
+
+    def calculate_system_of_lagrangian_equations(self):
+        self.operations.get_system_of_lagrangian_equations()
+
+    def define_lagrangian_function(self):
+        self.operations.set_lagrangian_function()
+
+    def define_bordered_hessian_matrix(self):
+        self.operations.set_bordered_hessian_matrix()
+
+    def calculate_bordered_hessian_matrix(self):
+        self.operations.get_bordered_hessian_matrix()
+
     def run(self):
         menu = Menu("Operaciones con Derivadas")
         menu.add_option("Definir funciones padres", self.define_parent_functions)
@@ -81,6 +98,11 @@ class Operations:
         menu.add_option("Calcular matriz Hessiana", self.calculate_hessian_matrix)
         menu.add_option("Definir polinomio de 2° orden de Taylor", self.define_taylor_function)
         menu.add_option("Evaluar polinomio de 2° orden de Taylor", self.calculate_taylor_polynomial)
+        menu.add_option("Definir sistema de ecuaciones de Lagrange", self.define_system_of_lagrangian_equations)
+        menu.add_option("Calcular sistema de ecuaciones de Lagrange", self.calculate_system_of_lagrangian_equations)
+        menu.add_option("Definir funcion de Lagrange", self.define_lagrangian_function)
+        menu.add_option("Definir matriz Hessiana orlada", self.define_bordered_hessian_matrix)
+        menu.add_option("Calcular matriz Hessiana orlada", self.calculate_bordered_hessian_matrix)
         menu.run()
 
 

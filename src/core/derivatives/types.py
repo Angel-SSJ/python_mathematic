@@ -42,7 +42,7 @@ class IFunction:
 
 @dataclass
 class IHierarchyFunctions:
-    parents:List[IFunction] = field(default_factory=list)
+    parents:ist[IFunction] = field(default_factory=list)
     childs:List[IFunction] = field(default_factory=list)
 
 
