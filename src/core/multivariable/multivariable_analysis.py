@@ -239,6 +239,7 @@ class MultivariableAnalysis(IMultivariableAnalysis,ITaylorSecondOrderPolynomial,
         lambda_symbol = sp.symbols('lambda')
 
         # Se recorre la lista de functions
+        print(f'Gradientes:\n')
         for idx, func in enumerate(self.functions.parents):
 
             if not func.vector_gradient.values:
@@ -265,9 +266,11 @@ class MultivariableAnalysis(IMultivariableAnalysis,ITaylorSecondOrderPolynomial,
                         system_equations.append(sp.Eq(sp.sympify(val), 0))
 
                     # Se agrega el gradiente de la funcion delimitadora al listado (simbolica => sin evaluar)
+                    func.set_symbolic_gradient()
                     bounding_gradient = func.get_symbolic_gradient()
                 if expression.type == "por defecto":
                     # Se agrega el gradiente de la funcion por defecto al listado (simbolica => sin evaluar)
+                    func.set_symbolic_gradient()
                     gradient_default_function = func.get_symbolic_gradient()
 
         # Se recorre el gradiente de la funcion por defecto y el gradiente de la funcion delimitadora
@@ -279,7 +282,7 @@ class MultivariableAnalysis(IMultivariableAnalysis,ITaylorSecondOrderPolynomial,
 
         print(f'\n--- Sistema de ecuaciones de Lagrange ---\n')
         for equation in system_equations:
-            print(f'\n{equation.lhs} = {equation.rhs}\n')
+            print(f'\n{equation.lhs} = {equation.rhs}')
             self.add_expression(Expression(value=equation,type="lagrangian_system_equations"))
 
 
@@ -395,6 +398,7 @@ class MultivariableAnalysis(IMultivariableAnalysis,ITaylorSecondOrderPolynomial,
         lagrangian_function.set_second_partial_derivatives()
 
         # se obtiene la matriz hessiana
+        lagrangian_function.set_symbolic_hessian_matrix()
         matrix_lagrangian = lagrangian_function.get_symbolic_hessian_matrix()
 
         # se obtiene la matriz de derivadas parciales de primer orden de la funcion delimitadora

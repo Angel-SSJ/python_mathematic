@@ -26,6 +26,7 @@ class MultivariableFunction(IMultivariableFunction,IHessianMatrix,IGradient,ITay
         self.derivatives = IDerivatives()
         self.vector_gradient = IVectorGradient()
         self.hessian_matrix = []
+        self.symbolic_hessian_matrix = []
 
 
 
@@ -53,9 +54,26 @@ class MultivariableFunction(IMultivariableFunction,IHessianMatrix,IGradient,ITay
         print(f'∇{self.name}({variables_str}): {self.vector_gradient.values}')
         return self.vector_gradient.values
 
+
+    @override
+    def set_gradient(self):
+        self.clear_gradient()
+        subs = {sp.Symbol(v):val for v,val in zip(self.variables,self.evaluated_point)}
+        for partial_derivative in self.derivatives.first_partials.values:
+            evaluated = partial_derivative.expression.subs(subs)
+            self.vector_gradient.values.append(evaluated)
+
+    @override
+    def set_symbolic_gradient(self):
+        self.clear_gradient()
+        for partial_derivative in self.derivatives.first_partials.values:
+            self.vector_gradient.values.append(partial_derivative.expression)
+
     @override
     def get_symbolic_gradient(self):
-        return [pd.expression for pd in self.derivatives.first_partials.values]
+        variables_str = ",".join(self.variables)
+        print(f'∇{self.name}({variables_str}): {self.vector_gradient.values}')
+        return self.vector_gradient.values
 
     @override
     def get_second_partial_derivatives(self):
@@ -64,6 +82,53 @@ class MultivariableFunction(IMultivariableFunction,IHessianMatrix,IGradient,ITay
     @override
     def get_hessian_matrix(self):
         return print(f'H({self.name}): \n {self.hessian_matrix}')
+
+
+    @override
+    def set_hessian_matrix(self):
+        # Se limpia la matriz hessiana
+        self.clear_hessian_matrix()
+        # Se obtiene el numero de variables
+        n = len(self.variables)
+        # Se crea un diccionario con las variables y sus valores
+        subs =  {sp.Symbol(v):val for v, val in zip(self.variables,self.evaluated_point)}
+        # Se crea la matriz hessiana
+        matrix = []
+        for i in range(n):
+            # Se crea una fila
+            row = []
+            for j in range(n):
+                # Se calcula el indice
+                idx = i*n+j
+                # Se evalua la derivada parcial
+                evaluated = self.derivatives.second_partials.values[idx].expression.subs(subs)
+                # Se agrega la derivada parcial evaluada a la fila
+                row.append(evaluated)
+            matrix.append(row)
+        self.hessian_matrix = matrix
+
+    @override
+    def set_symbolic_hessian_matrix(self):
+        # Se obtiene el numero de variables
+        self.clear_hessian_matrix()
+        n = len(self.variables)
+        # Se crea la matriz hessiana
+        matrix = []
+        for i in range(n):
+            # Se crea una fila
+            row = []
+            for j in range(n):
+                # Se calcula el indice
+                idx = i*n+j
+                # Se agrega la derivada parcial a la fila
+                row.append(self.derivatives.second_partials.values[idx].expression)
+            matrix.append(row)
+        self.symbolic_hessian_matrix = matrix
+
+    @override
+    def get_symbolic_hessian_matrix(self):
+        return self.symbolic_hessian_matrix
+
 
     @override
     def get_derivative(self):
@@ -175,53 +240,8 @@ class MultivariableFunction(IMultivariableFunction,IHessianMatrix,IGradient,ITay
                     )
                 )
 
-    @override
-    def set_gradient(self):
-        self.clear_gradient()
-        subs = {sp.Symbol(v):val for v,val in zip(self.variables,self.evaluated_point)}
-        for partial_derivative in self.derivatives.first_partials.values:
-            evaluated = partial_derivative.expression.subs(subs)
-            self.vector_gradient.values.append(evaluated)
 
-    @override
-    def set_hessian_matrix(self):
-        # Se limpia la matriz hessiana
-        self.clear_hessian_matrix()
-        # Se obtiene el numero de variables
-        n = len(self.variables)
-        # Se crea un diccionario con las variables y sus valores
-        subs =  {sp.Symbol(v):val for v, val in zip(self.variables,self.evaluated_point)}
-        # Se crea la matriz hessiana
-        matrix = []
-        for i in range(n):
-            # Se crea una fila
-            row = []
-            for j in range(n):
-                # Se calcula el indice
-                idx = i*n+j
-                # Se evalua la derivada parcial
-                evaluated = self.derivatives.second_partials.values[idx].expression.subs(subs)
-                # Se agrega la derivada parcial evaluada a la fila
-                row.append(evaluated)
-            matrix.append(row)
-        self.hessian_matrix = matrix
 
-    @override
-    def get_symbolic_hessian_matrix(self):
-        # Se obtiene el numero de variables
-        n = len(self.variables)
-        # Se crea la matriz hessiana
-        matrix = []
-        for i in range(n):
-            # Se crea una fila
-            row = []
-            for j in range(n):
-                # Se calcula el indice
-                idx = i*n+j
-                # Se agrega la derivada parcial a la fila
-                row.append(self.derivatives.second_partials.values[idx].expression)
-            matrix.append(row)
-        return matrix
 
     @override
     def set_taylor_second_order_polynomial(self):

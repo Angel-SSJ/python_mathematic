@@ -1,7 +1,7 @@
 from src.utils.menu import Menu
 from src.utils.input_handler import InputHandler
-from src.core.derivatives.multivariable_analysis import MultivariableAnalysis
-from src.core.derivatives.multivariable_function import MultivariableFunction
+from src.core.multivariable.multivariable_analysis import MultivariableAnalysis
+from src.core.multivariable.multivariable_function import MultivariableFunction
 import sympy as sp
 
 
@@ -75,18 +75,23 @@ class Operations:
 
 
     def define_system_of_lagrangian_equations(self):
+        """Define el sistema de ecuaciones de Lagrange"""
         self.operations.set_system_of_lagrangian_equations()
 
     def calculate_system_of_lagrangian_equations(self):
+        """Calcula el sistema de ecuaciones de Lagrange"""
         self.operations.get_system_of_lagrangian_equations()
 
     def define_lagrangian_function(self):
+        """Define la funcion de Lagrange"""
         self.operations.set_lagrangian_function()
 
     def define_bordered_hessian_matrix(self):
+        """Define la matriz Hessiana orlada"""
         self.operations.set_bordered_hessian_matrix()
 
     def calculate_bordered_hessian_matrix(self):
+        """Calcula la matriz Hessiana orlada"""
         self.operations.get_bordered_hessian_matrix()
 
     def run(self):
